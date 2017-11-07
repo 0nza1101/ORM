@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27004.2002
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ORMTest", "ORMTest\ORMTest.csproj", "{9DA5CABD-79EC-4D3E-830D-271CDD230063}"
+	ProjectSection(ProjectDependencies) = postProject
+		{09EB0A04-8551-49C5-AD9A-744094BAFA1C} = {09EB0A04-8551-49C5-AD9A-744094BAFA1C}
+	EndProjectSection
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ORMLib", "ORMLib\ORMLib.csproj", "{09EB0A04-8551-49C5-AD9A-744094BAFA1C}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{9DA5CABD-79EC-4D3E-830D-271CDD230063}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9DA5CABD-79EC-4D3E-830D-271CDD230063}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9DA5CABD-79EC-4D3E-830D-271CDD230063}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9DA5CABD-79EC-4D3E-830D-271CDD230063}.Release|Any CPU.Build.0 = Release|Any CPU
+		{09EB0A04-8551-49C5-AD9A-744094BAFA1C}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{09EB0A04-8551-49C5-AD9A-744094BAFA1C}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{09EB0A04-8551-49C5-AD9A-744094BAFA1C}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{09EB0A04-8551-49C5-AD9A-744094BAFA1C}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {0F8580CA-0128-469F-A024-5C476551F588}
+	EndGlobalSection
+EndGlobal
