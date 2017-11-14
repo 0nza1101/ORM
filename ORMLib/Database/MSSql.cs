@@ -37,34 +37,33 @@ namespace ORMLib.Database
                 conn.ConnectionString = connectionString;
 				conn.Open();
 				SqlCommand command = new SqlCommand(req, conn);
+                SqlDataReader reader;
+                try {
+                    reader = command.ExecuteReader();
+                } catch (Exception e) {
+                    throw new ArgumentException("Problème lors de l'éxécution de la requête SQL");
+                }
 
-                SqlDataReader reader = command.ExecuteReader();
-                try
-                {
-                    if (reader.HasRows){
-                        while (reader.Read())
+                if (reader.HasRows){
+                    while (reader.Read())
+                    {
+                        obj = Activator.CreateInstance<T>();
+                        foreach (PropertyInfo prop in obj.GetType().GetProperties())
                         {
-                            obj = Activator.CreateInstance<T>();
-                            foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                            if (!object.Equals(reader[prop.Name], DBNull.Value))
                             {
-                                if (!object.Equals(reader[prop.Name], DBNull.Value))
-                                {
-                                    prop.SetValue(obj, reader[prop.Name], null);
-                                }
+                                prop.SetValue(obj, reader[prop.Name], null);
                             }
-                            list.Add(obj);
                         }
-                        return list;
+                        list.Add(obj);
                     }
-                    else{
-                        Console.WriteLine("No rows found.");
-                    }
+                    return list;
                 }
-                finally
-                {
-                    // Always call Close when done reading.
-                    reader.Close();
+                else{
+                    Console.WriteLine("No rows found.");
                 }
+                // Always call Close when done reading.
+                reader.Close();
                 return null;
 			}
         }
