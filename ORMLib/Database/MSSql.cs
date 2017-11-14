@@ -2,10 +2,12 @@
 using System.Collections.Generic;
 using System.Text;
 using System.Reflection;
+using System.Linq;
+using System.Data;
 using System.Data.SqlClient;
 
 using ORMLib.Constants;
-      
+
 namespace ORMLib.Database
 {
     class MSSql : IDatabase
@@ -19,29 +21,52 @@ namespace ORMLib.Database
             set { m_connectionString = value; }
 		}
 
-        public MSSql(string ip, string dbName, string username, string password)
+        public MSSql(string ip, string port, string dbName, string username, string password)
         {
-            connectionString = String.Format("Network Library=dbmssocn;Data Source={0},80;Initial Catalog={1};User ID={2};Password={3};",
-                                             ip, dbName, username, password);
+            connectionString = String.Format("Network Library=dbmssocn;Data Source={0},{1};Initial Catalog={2};User ID={3};Password={4};",
+                                             ip, port, dbName, username, password);
         }
 
-        public void Select(string req)
+        public List<T> Select<T>(string req)
         {
 			using (conn = new SqlConnection())
             {
+                List<T> list = new List<T>();
+                T obj = default(T);
+
                 conn.ConnectionString = connectionString;
 				conn.Open();
-                //"SELECT * FROM TableName WHERE FirstColumn 
 				SqlCommand command = new SqlCommand(req, conn);
 
-				using (SqlDataReader reader = command.ExecuteReader())
-				{
-					while (reader.Read())
-                    {
-                        Console.WriteLine(reader);
-					}
-				}
-			} 
+                SqlDataReader reader = command.ExecuteReader();
+                try
+                {
+                    if (reader.HasRows){
+                        while (reader.Read())
+                        {
+                            obj = Activator.CreateInstance<T>();
+                            foreach (PropertyInfo prop in obj.GetType().GetProperties())
+                            {
+                                if (!object.Equals(reader[prop.Name], DBNull.Value))
+                                {
+                                    prop.SetValue(obj, reader[prop.Name], null);
+                                }
+                            }
+                            list.Add(obj);
+                        }
+                        return list;
+                    }
+                    else{
+                        Console.WriteLine("No rows found.");
+                    }
+                }
+                finally
+                {
+                    // Always call Close when done reading.
+                    reader.Close();
+                }
+                return null;
+			}
         }
     }
 }

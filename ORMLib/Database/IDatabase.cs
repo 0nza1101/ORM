@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Data;
 
 using ORMLib.Constants;
 
@@ -10,6 +11,6 @@ namespace ORMLib.Database
     {
         string connectionString { get; set; }
 
-        void Select(string req);
+        List<T> Select<T>(string req);
     }
 }

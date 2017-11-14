@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Reflection;
+using System.Linq;
 using System.Text;
 
 using ORMLib.Constants;
@@ -7,7 +9,7 @@ using ORMLib.Database;
 
 namespace ORMLib.Generics
 {
-    class DboMapper
+    public class DboMapper
     {
         private IDatabase m_database;
 
@@ -17,29 +19,32 @@ namespace ORMLib.Generics
             private set { m_database = value; }
         }
 
-        public DboMapper(string ip, string dbName, string username, string password, DatabaseType databaseType)
+        public DboMapper(string ip, string port, string dbName, string username, string password, DatabaseType databaseType)
         {
-            //Connect to the Database
+            //Create the correct Database
             DatabaseFactory databaseFactory = new DatabaseFactory();
-            this.database = databaseFactory.Create(ip, dbName, username, password, databaseType);
+            this.database = databaseFactory.Create(ip, port, dbName, username, password, databaseType);
         }
 
-		public List<T> List<T>(string request)
+        //Mapping
+        public List<T> List<T>(string request)
 		{
-			//Check if request contain SELECT words
-
-			//Loop through the response array of the database
-			//Use reflections to get property and fields
-			//For each val in response
-			//List.add
-
-			return null;
+            List<T> list = new List<T>();
+            //Check if request contain SELECT words at index 0
+            if(request.IndexOf("SELECT", StringComparison.CurrentCulture) == 0){
+                list = database.Select<T>(request);
+            }
+			return list;
 		}
+
+
            
-		public void Execute<T>(string request, List<T> parameters)
+        public void Execute<T>(string request, List<DboParameter<T>> parameters)
 		{
             
 		}
+
+
 
         public void ExecuteInsert<T>(T obj)
         {

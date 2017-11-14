@@ -8,18 +8,18 @@ namespace ORMLib.Database
 {
     class DatabaseFactory
     {
-        public IDatabase Create(string ip, string dbName, string username, string password, DatabaseType databaseType)
+        public IDatabase Create(string ip, string port, string dbName, string username, string password, DatabaseType databaseType)
         {
             try
             {
                 switch(databaseType)
                 {
                     case DatabaseType.MSSql:
-                        return new MSSql(ip, dbName, username, password);
+                        return new MSSql(ip, port, dbName, username, password);
                     case DatabaseType.MySql:
-                        return new MSSql(ip, dbName, username, password);
+                        return new MSSql(ip, port, dbName, username, password);
                     case DatabaseType.PostgreSql:
-                         return new MSSql(ip, dbName, username, password);
+                        return new MSSql(ip, port, dbName, username, password);
                     default:
                         throw new ArgumentException($"DatabaseTypes {databaseType} not supported");
                 }
@@ -28,7 +28,7 @@ namespace ORMLib.Database
             {
                 Console.WriteLine("Erreur : ", e.Message);
             }
-            return new MSSql(ip, dbName, username, password);
+            return new MSSql(ip, port, dbName, username, password);
         }
 
     }
