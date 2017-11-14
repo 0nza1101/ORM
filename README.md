@@ -1,9 +1,9 @@
 # ORM
 
 
-Pour pouvoir tester plus rapidement les differents requetes vers les differents type de base de donnée v
+Pour pouvoir tester plus rapidement les différentes requêtes vers les différents types de base de données voici les requêtes initiales en ligne de commande pour mettre en place une base de données correspondante à la classe Contact (Program.cs).
 
-### Microsoft SQL requêtes initiales
+### Microsoft SQL
 
 ```
 CREATE DATABASE devdb
@@ -23,7 +23,7 @@ INSERT INTO Contacts VALUES ('monNom', 'MonAddress', 'monMail@gmail.com');
 GO
 ```
 
-### MySQL Server requêtes initiales
+### MySQL Server
 
 ```
 CREATE DATABASE devdb
@@ -41,7 +41,7 @@ CREATE TABLE Contacts (
 INSERT INTO Contacts VALUES ('monNom', 'MonAddress', 'monMail@gmail.com');
 ```
 
-### PostgreSQL Server requêtes initiales
+### PostgreSQL Server
 
 ```
 CREATE DATABASE devdb
