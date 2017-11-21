@@ -6,6 +6,7 @@ using System.Text;
 
 using ORMLib.Constants;
 using ORMLib.Database;
+using System.Data.Common;
 
 namespace ORMLib.Generics
 {
@@ -19,6 +20,16 @@ namespace ORMLib.Generics
             private set { m_database = value; }
         }
 
+        /// <summary>
+        ///     Creates a DatabaseFactory object that will allow us to call DatabaseFactory.Create() to create our database given the parameters in entry and given the type of database
+        ///     Type of Database is required because it is this object that will create the database (MSSql, MySql, PostgreSQL)
+        /// </summary>
+        /// <param name="ip">The IP Address of the database. It generally is localhost</param>
+        /// <param name="port">Optional Value, needed for MSSql</param>
+        /// <param name="dbName">Name of your database</param>
+        /// <param name="username">Username to connect to the database</param>
+        /// <param name="password">Password to connect to the database</param>
+        /// <param name="databaseType">Object that defines the type of database that we want to create</param>
         public DboMapper(string ip, string port, string dbName, string username, string password, DatabaseType databaseType)
         {
             //Create the correct Database
@@ -26,29 +37,33 @@ namespace ORMLib.Generics
             this.database = databaseFactory.Create(ip, port, dbName, username, password, databaseType);
         }
 
-        //Mapping
+        /// <summary>
+        ///     Checks if the word 'SELECT' is in the first position in the parameter 'request'. If not, it returns null.
+        ///     And then calls the IDatabase.Select<T>() function and gives him the request as a parameter
+        /// </summary>
+        /// <typeparam name="T">Generic object </typeparam>
+        /// <param name="request">Contains the SQL request</param>
+        /// <returns>A list that contains the result of the SQL Statement</returns>
         public List<T> List<T>(string request)
-		{
-            List<T> list = new List<T>();
+        { 
             //Check if request contain SELECT words at index 0
             if(request.IndexOf("SELECT", StringComparison.CurrentCulture) == 0){
-                list = database.Select<T>(request);
+                return database.Select<T>(request);
             }
-			return list;
+            return null;
 		}
 
-
-           
-        public void Execute<T>(string request, List<DboParameter<T>> parameters)
-		{
-            
-		}
-
-
-
-        public void ExecuteInsert<T>(T obj)
+        /// <summary>
+        ///     Calls the function IDatabase.Execute<T>() and gives him the SQL Statement and the list of the parameters
+        /// </summary>
+        /// <typeparam name = "T"> Generic object </typeparam>
+        /// <param name="request">Contains the SQL request</param>
+        /// <param name="parameters">Contains the values of the parameters of the SQL Statement</param>
+        /// <returns>A list that contains the result of the SQL Statement</returns>
+        public List<T> Execute<T>(string request, List<DbParameter> parameters)
         {
-            
+            return database.Execute<T>(request, parameters);
         }
+
 	}
 }
