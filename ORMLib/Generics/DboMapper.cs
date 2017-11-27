@@ -7,6 +7,7 @@ using System.Text;
 using ORMLib.Constants;
 using ORMLib.Database;
 using System.Data.Common;
+using ORMLib.exception;
 
 namespace ORMLib.Generics
 {
@@ -47,11 +48,12 @@ namespace ORMLib.Generics
         public List<T> List<T>(string request)
         { 
             //Check if request contain SELECT words at index 0
-            if(request.IndexOf("SELECT", StringComparison.CurrentCulture) == 0){
-                return database.Select<T>(request);
+            if(request.IndexOf("SELECT", StringComparison.Ordinal) != 0){
+                throw new WrongSqlRequestException("Your SQL Statement is not a SELECT Statement. The function List<T> can only be used with a SELECT statement");
             }
-            return null;
-		}
+            
+            return database.Select<T>(request);
+        }
 
         /// <summary>
         ///     Calls the function IDatabase.Execute<T>() and gives him the SQL Statement and the list of the parameters
@@ -62,6 +64,10 @@ namespace ORMLib.Generics
         /// <returns>A list that contains the result of the SQL Statement</returns>
         public List<T> Execute<T>(string request, List<DbParameter> parameters)
         {
+            if (request.Equals(String.Empty) || request.Equals(null))
+            {
+                throw new RequestIsEmptyException("You have not provided a SQL statement");
+            }  
             return database.Execute<T>(request, parameters);
         }
 

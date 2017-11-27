@@ -20,6 +20,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <RunCodeAnalysis>true</RunCodeAnalysis>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -38,6 +39,7 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Threading.Tasks.Extensions, Version=4.1.1.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Threading.Tasks.Extensions.4.4.0\lib\netstandard2.0\System.Threading.Tasks.Extensions.dll</HintPath>
     </Reference>
@@ -45,7 +47,6 @@
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
-    <Reference Include="System.Net.Http" />
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
@@ -54,11 +55,10 @@
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\MSSql.cs" />
     <Compile Include="Constants\MySqlEngine.cs" />
+    <Compile Include="exception\DatabaseException.cs" />
+    <Compile Include="exception\WrongSqlRequestException.cs" />
     <Compile Include="Generics\DboMapper.cs" />
-    <Compile Include="Generics\DboParameter.cs" />
-    <Compile Include="Log\ILog.cs" />
-    <Compile Include="Log\Log.cs" />
-    <Compile Include="Log\LogTypes.cs" />
+    <Compile Include="exception\RequestIsEmptyException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

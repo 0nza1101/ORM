@@ -10,26 +10,17 @@ namespace ORMLib.Database
     {
         public IDatabase Create(string ip, string port, string dbName, string username, string password, DatabaseType databaseType)
         {
-            try
+            switch(databaseType)
             {
-                switch(databaseType)
-                {
-                    case DatabaseType.MSSql:
-                        return new MSSql(ip, port, dbName, username, password);
-                    case DatabaseType.MySql:
-                        return new MSSql(ip, port, dbName, username, password);
-                    case DatabaseType.PostgreSql:
-                        return new MSSql(ip, port, dbName, username, password);
-                    default:
-                        throw new ArgumentException($"DatabaseTypes {databaseType} not supported");
-                }
+                case DatabaseType.MSSql:
+                    return new MSSql(ip, port, dbName, username, password);
+                case DatabaseType.MySql:
+                    return new MSSql(ip, port, dbName, username, password);
+                case DatabaseType.PostgreSql:
+                    return new MSSql(ip, port, dbName, username, password);
+                default:
+                    throw new ArgumentException($"DatabaseTypes {databaseType} not supported");
             }
-            catch (NotImplementedException e)
-            {
-                Console.WriteLine("Erreur : ", e.Message);
-            }
-            return new MSSql(ip, port, dbName, username, password);
         }
-
     }
 }

@@ -1,14 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Reflection;
-using System.Linq;
 using System.Data;
 using System.Data.SqlClient;
-
-using ORMLib.Constants;
-using ORMLib.Generics;
 using System.Data.Common;
+using ORMLib.exception;
 
 namespace ORMLib.Database
 {
@@ -48,6 +44,8 @@ namespace ORMLib.Database
             connectionString = String.Format("Network Library=dbmssocn;Data Source={0},{1};Initial Catalog={2};User ID={3};Password={4};",
                                              ip, port, dbName, username, password);
         }
+
+
         /// <summary>
         ///     This function executes a SQL 'SELECT' Statement.
         ///     First it initalizes the DbConnection, DbCommand and DbDataReader variables
@@ -67,12 +65,15 @@ namespace ORMLib.Database
 
                 dbConnection.ConnectionString = connectionString;
                 dbConnection.Open();
-                DbCommand command = dbConnection.CreateCommand();
+                DbCommand dbCommand = dbConnection.CreateCommand();
+                dbCommand.CommandText = req;
+                dbCommand.CommandType = CommandType.Text;
+                dbCommand.Connection = dbConnection;
                 DbDataReader reader;
                 try {
-                    reader = command.ExecuteReader();
+                    reader = dbCommand.ExecuteReader();
                 } catch (Exception e) {
-                    throw new ArgumentException("Problème lors de l'exécution de la requête SQL" + e.Message);
+                    throw new DatabaseException($"Problème lors de l'exécution de la requête SQL : {e.Message}");
                 }
 
                 if (reader.HasRows) {
@@ -132,16 +133,16 @@ namespace ORMLib.Database
                     dbCommand.Parameters.Add(sqlParameter);
                 }
                 dbConnection.Open();
-                int i = 0;
-                DbDataReader dbDataReader = null;
-                if (req.IndexOf("SELECT") == 0)
+                var i = 0;
+                if (req.IndexOf("SELECT", StringComparison.Ordinal) == 0)
                 {
+                    DbDataReader dbDataReader;
                     try
                     {
                         dbDataReader = dbCommand.ExecuteReader();
                     } catch (Exception e)
                     {
-                        Console.WriteLine($"Can't perfom operation because : { e.Message }");
+                        throw new DatabaseException($"An error has occured. Reason : {e.Message}");
                     }
                    
                     T obj = default(T);
@@ -162,25 +163,25 @@ namespace ORMLib.Database
                         dbDataReader.Close();
                     }
                 }
-                else if(req.IndexOf("INSERT") == 0 
-                    || req.IndexOf("UPDATE") == 0 
-                    || req.IndexOf("DELETE") == 0)
+                else if(req.IndexOf("INSERT", StringComparison.Ordinal) == 0 
+                    || req.IndexOf("UPDATE", StringComparison.Ordinal) == 0 
+                    || req.IndexOf("DELETE", StringComparison.Ordinal) == 0)
                 {
-                    i = dbCommand.ExecuteNonQuery();
+                    try
+                    {
+                        i = dbCommand.ExecuteNonQuery();
+                    }
+                    catch (Exception e)
+                    {
+                        throw new DatabaseException($"An error has occured. Reason : {e.Message}");
+                    }
                 } else {
-                    throw new WrongSqlRequestException("Your SQL statement is not a SELECt, INSERT, UPDATE or DELETE statement");
+                    throw new WrongSqlRequestException("Your SQL statement is not a SELECT, INSERT, UPDATE or DELETE statement");
                 }
-
-                if(i == -1)
-                {
-                    throw new NoRowsWereAffectedException("None of the rows in the SQL Statement were affected");
-                }
-
                 dbConnection.Close();
                 dbConnection.Dispose();
                 return list;
             }
         }
-
     }
 }
