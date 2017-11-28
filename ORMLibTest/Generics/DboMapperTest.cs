@@ -19,6 +19,33 @@ namespace ORMLibTest.Generics
         private DboMapper database = new DboMapper("localhost", "1433", "devdb", "sa", "P@55w0rd", DatabaseType.MSSql);
 
         [TestMethod]
+        public void TestListWithSelectStatement()
+        {
+            //GIVEN
+            string selectReq = $"SELECT * FROM contacts";
+
+            //WHEN
+            List<Contacts> contactsReturnedBySelect = database.List<Contacts>(selectReq);
+
+            //THEN
+            Assert.IsNotNull(contactsReturnedBySelect);
+            Assert.IsFalse(contactsReturnedBySelect.Count <= 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(WrongSqlRequestException), "Your SQL Statement is not a SELECT Statement. The function List<T> can only be used with a SELECT statement")]
+        public void TestListWithStatementOtherThanSelect()
+        {
+            //GIVEN
+            string selectReq = $"DELETE FROM contacts";
+
+            //WHEN
+            List<Contacts> contactsReturnedBySelect = database.List<Contacts>(selectReq);
+
+            //THEN
+        }
+
+        [TestMethod]
         public void TestExecuteWithSelectStatementAndWithParameters()
         {
             //GIVEN

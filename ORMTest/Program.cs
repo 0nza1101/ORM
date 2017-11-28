@@ -49,7 +49,7 @@ namespace ORMTest
             Console.ReadKey();
             Console.Clear();
 
-            // Calling the Execute Function by giving him an INSERT Statement with parameters
+            // Calling the Execute Function by giving him a INSERT Statement with parameters
             string insertReq = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
             List<DbParameter> pInsert = new List<DbParameter>();
             pInsert.Add(new SqlParameter("@name", "TEST CASE"));
@@ -57,7 +57,7 @@ namespace ORMTest
             pInsert.Add(new SqlParameter("@email", "TestEmail@gmail.com"));
             List<Contacts> contactsInsert = database.Execute<Contacts>(insertReq, pInsert);
 
-            // Calling the Execute Function by giving him an SELECT Statement with parameters
+            // Calling the Execute Function by giving him a SELECT Statement with parameters
             string selectReqWithParameters = @"SELECT * FROM contacts WHERE email = @email";
             List<DbParameter> pSelect = new List<DbParameter>();
             pSelect.Add(new SqlParameter("@email", "TestEmail@gmail.com"));
@@ -69,7 +69,7 @@ namespace ORMTest
             Console.ReadKey();
             Console.Clear();
 
-            // Calling the Execute Function by giving him an UPDATE Statement with parameters
+            // Calling the Execute Function by giving him a UPDATE Statement with parameters
             string updateReq = @"UPDATE contacts SET name = @name, address = @address, @email = email WHERE email = @oldEmail";
             List<DbParameter> pUpdate = new List<DbParameter>();
             pUpdate.Add(new SqlParameter("@name", "NAME CHANGED FOR TEST"));
@@ -88,13 +88,13 @@ namespace ORMTest
             Console.ReadKey();
             Console.Clear();
 
-            // Calling the Execute Function by giving him an DELETE Statement with parameters
+            // Calling the Execute Function by giving him a DELETE Statement with parameters
             string deleteReq = @"DELETE FROM contacts WHERE address = @address";
             List<DbParameter> pDelete = new List<DbParameter>();
             pDelete.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
             List<Contacts> contactsDelete = database.Execute<Contacts>(deleteReq, pDelete);
 
-            // Calling the Execute Function by giving him an SELECT Statement
+            // Calling the Execute Function by giving him a SELECT Statement
             contactsSelect = null;
             contactsSelect = database.Execute<Contacts>(selectReq, pSelect);
             foreach (var item in contactsSelect)

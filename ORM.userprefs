@@ -1,0 +1,17 @@
+﻿<Properties StartupConfiguration="{9644C9C9-7A27-4C12-8CD0-E2EFB870D382}|Default">
+  <MonoDevelop.Ide.Workbench ActiveDocument="ORMLib/Database/MSSql.cs">
+    <Files>
+      <File FileName="ORMTest/Program.cs" Line="72" Column="60" />
+      <File FileName="ORMLibTest/Generics/DboMapperTest.cs" Line="82" Column="10" />
+      <File FileName="ORMLibTest/Database/MSSqlTest.cs" Line="22" Column="10" />
+      <File FileName="ORMLib/Database/MSSql.cs" Line="67" Column="1" />
+    </Files>
+  </MonoDevelop.Ide.Workbench>
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
+  <MonoDevelop.Ide.DebuggingService.Breakpoints>
+    <BreakpointStore />
+  </MonoDevelop.Ide.DebuggingService.Breakpoints>
+  <MonoDevelop.Ide.DebuggingService.PinnedWatches />
+  <MultiItemStartupConfigurations />
+  <MonoDevelop.Ide.ItemProperties.ORMTest PreferredExecutionTarget="MonoDevelop.Default" />
+</Properties>

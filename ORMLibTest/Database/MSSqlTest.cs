@@ -18,6 +18,47 @@ namespace ORMLibTest
         private MSSql database = new MSSql("localhost", "1433", "devdb", "sa", "P@55w0rd");
 
         [TestMethod]
+        public void TestListWithSelectStatement()
+        {
+            //GIVEN
+            string selectReqWithListFunction = "SELECT * FROM Contacts";
+
+            //WHEN
+            List<Contacts> listMadeByListFunction = database.Select<Contacts>(selectReqWithListFunction);
+            //THEN
+
+            Assert.IsNotNull(listMadeByListFunction);
+            Assert.IsTrue(listMadeByListFunction.Count > 0);
+        }
+
+        [TestMethod]
+        [ExpectedException(typeof(DatabaseException), "Problème lors de l'exécution de la requête SQL :")]
+        public void TestListWithWrongSelectStatement()
+        {
+            //GIVEN
+            string selectReqWithListFunction = "SELECTZZZZ * FROM Contacts";
+
+            //WHEN
+            List<Contacts> listMadeByListFunction = database.Select<Contacts>(selectReqWithListFunction);
+
+            //THEN
+        }
+
+        [TestMethod]
+        public void TestListWithSelectStatementThatReturnsNothing()
+        {
+            //GIVEN
+            string selectReq = "SELECT * FROM contacts WHERE NAME = 'THIS REQUEST SHALL NOT PASS'";
+
+            //WHEN
+            List<Contacts> listMadeByListFunction = database.Select<Contacts>(selectReq);
+
+            //THEN
+            Assert.IsTrue(listMadeByListFunction.Count == 0);
+
+        }
+
+        [TestMethod]
         public void TestExecuteWithSelectStatementAndWithParameters()
         {
             //GIVEN
