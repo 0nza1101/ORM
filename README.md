@@ -38,7 +38,7 @@ CREATE TABLE Contacts (
     Email VARCHAR(255) NOT NULL
 );
 
-INSERT INTO Contacts VALUES ('monNom', 'MonAddress', 'monMail@gmail.com');
+INSERT INTO Contacts(name, address, email) VALUES ('monNom', 'MonAddress', 'monMail@gmail.com');
 ```
 
 ### PostgreSQL Server
