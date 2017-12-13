@@ -5,6 +5,7 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
 using ORMLib.exception;
+using MySql.Data.MySqlClient;
 
 namespace ORMLib.Database
 {
@@ -12,6 +13,7 @@ namespace ORMLib.Database
     {
         private DbConnection _dbConnection;
 		private string m_connectionString;
+     
 
         public string connectionString
 		{

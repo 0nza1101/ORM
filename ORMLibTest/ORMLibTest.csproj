@@ -51,6 +51,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Database\MSSqlTest.cs" />
+    <Compile Include="Database\MysqlTest.cs" />
     <Compile Include="Generics\DboMapperTest.cs" />
     <Compile Include="Modele\Contacts.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

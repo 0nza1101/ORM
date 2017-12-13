@@ -5,6 +5,7 @@ using System.Data;
 
 using ORMLib.Constants;
 using System.Data.Common;
+using MySql.Data.MySqlClient;
 
 namespace ORMLib.Database
 {

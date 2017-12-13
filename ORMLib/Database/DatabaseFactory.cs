@@ -15,7 +15,7 @@ namespace ORMLib.Database
                 case DatabaseType.MSSql:
                     return new MSSql(ip, port, dbName, username, password);
                 case DatabaseType.MySql:
-                    return new MSSql(ip, port, dbName, username, password);
+                    return new Mysql(ip,dbName, username, password);
                 case DatabaseType.PostgreSql:
                     return new MSSql(ip, port, dbName, username, password);
                 default:

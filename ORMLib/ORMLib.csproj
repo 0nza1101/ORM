@@ -55,6 +55,7 @@
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\MSSql.cs" />
     <Compile Include="Constants\MySqlEngine.cs" />
+    <Compile Include="Database\Mysql.cs" />
     <Compile Include="exception\DatabaseException.cs" />
     <Compile Include="exception\WrongSqlRequestException.cs" />
     <Compile Include="Generics\DboMapper.cs" />
