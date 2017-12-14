@@ -34,9 +34,6 @@ namespace ORMLib.Database
             }
         }
 
-        /// <summary>
-        ///     Creates a MSSql object by setting its 'connectionString' value
-        /// </summary>
         /// <param name="ip">The IP Address of the database. It generally is localhost</param>
         /// <param name="dbName">Name of your database</param>
         /// <param name="username">Username to connect to the database</param>
@@ -48,14 +45,6 @@ namespace ORMLib.Database
                                              ip, dbName,username, password);
         }
 
-
-        /// <summary>
-        ///     This function executes a SQL 'SELECT' Statement.
-        ///     First it initalizes the DbConnection, DbCommand and DbDataReader variables
-        ///     Then we execute the Sql Statement with the function 'ExecuteReader' that will return us a DbDataReader that contains the result of our SQL Statement
-        ///     We map the object with the values of the DbDataReader and add it to a list with the type of this object
-        ///     Finally, we return this list
-        /// </summary>
         /// <typeparam name="T">A generic object, can be int, can typeof Contacts</typeparam>
         /// <param name="req">Contains the SQL Statement</param>
         /// <returns>A list that contains the result of the SQL SELECT statement</returns>
@@ -109,17 +98,6 @@ namespace ORMLib.Database
             }
         }
 
-        /// <summary>
-        ///     Calling this function would execute the SQL statement that you give this function, with the parameters in the list 'listOfParameters'
-        ///     It instaciates a new connection, a SqlCommand object that will allow us to give parameters to our SQL statement
-        ///     It also instaciates a DbParamater object that will contain our values of our parameters given in entry in the method
-        ///     Then it assigns the values of the parameters to the parameters in the SQL Statement
-        ///     Then, depending on SQL Request (SELECT, INSERT, UPDATE, DELETE), it calls either ExecuteNonQuery() or ExecuteReader()
-        ///     The difference is that one these functions returns the number of row affected or -1 if 0 rows have been affected and the other one returns a DataReader that contains the result of 
-        ///     the SQL Request
-        ///     If we call ExecuteNonQuery, we will check if the number of rows affected are superior to 0. If not, we'll throw an exception because no rows were affected by the SQL Statement
-        ///     If we call ExecuteReader, we will check if the SQL Statement returned rows. If it did, then we'll create an object with the results of the SQL Statement
-        /// </summary>
         /// <typeparam name="T">A generic object, can be int, can typeof Contacts</typeparam>
         /// <param name="req">Contains the SQL statement</param>
         /// <param name="listOfParameters">Contains the value of the parameters in the SQL Statement</param>
