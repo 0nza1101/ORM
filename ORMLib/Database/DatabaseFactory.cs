@@ -17,7 +17,7 @@ namespace ORMLib.Database
                 case DatabaseType.MySql:
                     return new Mysql(ip,dbName, username, password);
                 case DatabaseType.PostgreSql:
-                    return new MSSql(ip, port, dbName, username, password);
+                    return new PostgreSql(ip, dbName, username, password);
                 default:
                     throw new ArgumentException($"DatabaseTypes {databaseType} not supported");
             }

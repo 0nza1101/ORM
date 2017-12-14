@@ -37,7 +37,7 @@ namespace ORMTest
         {
             Console.WriteLine($"Test cases for ORMLib made by { team }");
 
-            DboMapper database = new DboMapper("localhost", " ", "devdb", "root", " ", DatabaseType.MySql);
+            DboMapper database = new DboMapper("localhost", "5432", "devdb", "postgres", " ", DatabaseType.PostgreSql);
           
            //Simple mapping takes only SELECT
            string selectReqWithListFunction = "SELECT * FROM contacts";
