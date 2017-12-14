@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\ORMLibTest\\Database",
+    "\\ORMLibTest\\Generics",
+    "\\ORMLib\\Database",
+    "\\ORMLib\\Exception",
+    "\\ORMLib\\Generics",
+    "\\ORMLib\\obj",
+    "\\ORMTest",
+    "\\ORMTest\\bin",
+    "\\ORMTest\\obj",
+    "\\ORMTest\\Properties"
+  ],
+  "SelectedNode": "\\ORMTest\\Program.cs",
+  "PreviewInSolutionExplorer": false
+}
