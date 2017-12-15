@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.Common;
 using ORMLib.exception;
 using Npgsql;

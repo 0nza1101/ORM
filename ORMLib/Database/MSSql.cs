@@ -5,7 +5,6 @@ using System.Data;
 using System.Data.SqlClient;
 using System.Data.Common;
 using ORMLib.exception;
-using MySql.Data.MySqlClient;
 
 namespace ORMLib.Database
 {

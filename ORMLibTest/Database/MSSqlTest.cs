@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using ORMLib.Generics;
-using ORMLib.Constants;
 using ORMLibTest.Modele;
 using ORMLib.exception;
 using ORMLib.Database;
