@@ -3,11 +3,24 @@ NIJEAN Jordan
 LEUNG Gabrielle
 RAVELONANTOANDRO Teddy
 
-
-
-
-Nijean Jordan
-Creation de la structure et arborescence du projet, mise en place des classes et interfaces et communications entre les classes ainsi que du design pattern factory.
+NIJEAN Jordan
+Création de la structure et arborescence du projet, mise en place des classes et interfaces et communications entre les classes ainsi que du design pattern factory.
 Creation du projet console ORMTest pour effectuer les tests de notre libraire avec les differents cas d'utilisations.
-Mise en places des methodes dans Database/MSSql.cs et Generics/DboMapper.cs pour fontionnalité de mapping simple.
-Creation de test unitaires pour Database/MSSql.cs dans la solution ORMLibTest.
+Mise en place de la méthode "List" dans Database/MSSql.cs et Generics/DboMapper.cs pour fontionnalité de mapping simple.
+Creation de tests unitaires pour Database/MSSql.cs dans la solution ORMLibTest.
+
+LEUNG Gabrielle
+Mise en place de la classe PostgreSQL pour permettre d'exécuter des requêtes telles que des insert, select, update, delete.
+Mise en place de tests unitaires pour permettre une bonne couverture de code et pour s'assurer que le code implémenté fonctionne bien.
+Mise en place de tests d'intégration dans ORMTest.
+
+RAVELONANTOANDRO Teddy
+Mise en place de la classe MySql pour permettre d'exécuter des requêtes telles que des insert, select, update, delete.
+Mise en place de tests unitaires pour permettre une bonne couverture de code et pour s'assurer que le code implémenté fonctionne bien.
+Mise en place de tests d'intégration dans ORMTest.
+
+UREN Can Serkan
+Mise en place de la structure du projet avec Jordan. 
+Création du projet ORMLibTest pour pouvoir créer et lancer des tests unitaires sur les différentes classes du projet.
+Mise en place de la méthode "Execute" dans MsSql et DboMapper
+Mise en place de tests unitaires concernant les méthodes Execute de MsSql et DboMapper.
