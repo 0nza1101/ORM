@@ -12,40 +12,33 @@ using System.Threading.Tasks;
 
 namespace ORMLib.Database
 {
-    public class Mysql : IDatabase
+    public class MySql : IDatabase
     {
-        private DbConnection mdbConnection;
-        private string mconnectionString;
+        private DbConnection m_dbConnection;
+        private string m_connectionString;
 
-        private MySqlConnection mysqlConnection;
+        private MySqlConnection mySqlConnection;
 
-        public Mysql(string ip, string port, string dbName, string username, string password)
-        {
-            connectionString = String.Format("SERVER={0}:{1}; DATABASE={2}; UID={3}; PASSWORD={4}",ip, port, dbName, username, password);
-        }
-
-        public Mysql(string ip, string dbName, string username, string password)
+        public MySql(string ip, string dbName, string username, string password)
         {
             connectionString = String.Format("SERVER={0}; DATABASE={1}; UID={2}; PASSWORD={3}", ip, dbName, username, password);
         }
+        
+        public string connectionString { get { return m_connectionString; }  set { m_connectionString = value; } }
+        public DbConnection dbConnection { get { return m_dbConnection; } set { m_dbConnection = value; } }
 
-
-        public string connectionString { get { return mconnectionString; }  set { mconnectionString = value; } }
-        public DbConnection dbConnection { get { return mdbConnection; } set { mdbConnection = value; } }
-
-        public MySqlConnection MysqlConnection { get { return mysqlConnection; } set { mysqlConnection = value; } }
+        public MySqlConnection MySqlConnection { get { return mySqlConnection; } set { mySqlConnection = value; } }
      
 
         public List<T> Execute<T>(string req, List<DbParameter> listOfParameters)
         {
             List<T> list = new List<T>();
-            using (mysqlConnection = new MySqlConnection(connectionString))
+            using (mySqlConnection = new MySqlConnection(connectionString))
             {
-             //   dbConnection.ConnectionString = connectionString;
-                MySqlCommand dbCommand = mysqlConnection.CreateCommand();
+                MySqlCommand dbCommand = mySqlConnection.CreateCommand();
                 dbCommand.CommandText = req;
                 dbCommand.CommandType = CommandType.Text;
-                dbCommand.Connection = mysqlConnection;
+                dbCommand.Connection = mySqlConnection;
                 foreach (DbParameter param in listOfParameters)
                 {
                     DbParameter sqlParameter = dbCommand.CreateParameter();
@@ -53,7 +46,7 @@ namespace ORMLib.Database
                     sqlParameter.Value = param.Value;
                     dbCommand.Parameters.Add(sqlParameter);
                 }
-                mysqlConnection.Open();
+                mySqlConnection.Open();
                 var i = 0;
                 if (req.IndexOf("SELECT", StringComparison.Ordinal) == 0)
                 {
@@ -102,25 +95,25 @@ namespace ORMLib.Database
                 {
                     throw new WrongSqlRequestException("Your SQL statement is not a SELECT, INSERT, UPDATE or DELETE statement");
                 }
-                mysqlConnection.Close();
-                mysqlConnection.Dispose();
+                mySqlConnection.Close();
+                mySqlConnection.Dispose();
                 return list;
             }
         }
 
         public List<T> Select<T>(string req)
         {
-            using (mysqlConnection = new MySqlConnection(connectionString))
+            using (mySqlConnection = new MySqlConnection(connectionString))
             {
                 List<T> list = new List<T>();
                 T obj = default(T);
 
                 // dbConnection.ConnectionString = connectionString;
-                mysqlConnection.Open();
-                MySqlCommand dbCommand = mysqlConnection.CreateCommand();
+                mySqlConnection.Open();
+                MySqlCommand dbCommand = mySqlConnection.CreateCommand();
                 dbCommand.CommandText = req;
                 dbCommand.CommandType = CommandType.Text;
-                dbCommand.Connection = mysqlConnection;
+                dbCommand.Connection = mySqlConnection;
                 MySqlDataReader reader;
                 try
                 {
@@ -150,10 +143,9 @@ namespace ORMLib.Database
                 {
                     Console.WriteLine("No rows found.");
                 }
-                // Always call Close when done reading.
                 reader.Close();
-                mysqlConnection.Close();
-                mysqlConnection.Dispose();
+                mySqlConnection.Close();
+                mySqlConnection.Dispose();
                 return list;
             }
         }

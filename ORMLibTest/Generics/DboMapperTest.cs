@@ -16,7 +16,13 @@ namespace ORMLibTest.Generics
     [TestClass]
     public class DboMapperTest
     {
-        private DboMapper database = new DboMapper("localhost", "1433", "devdb", "sa", "P@55w0rd", DatabaseType.MSSql);
+        private DboMapper database;
+
+        //[AssemblyInitialize]
+        //public void init()
+        //{
+        //    database = new DboMapper("localhost", "1433", "devdb", "sa", "P@55w0rd", DatabaseType.MSSql);
+        //}
 
         [TestMethod]
         public void TestListWithSelectStatement()
