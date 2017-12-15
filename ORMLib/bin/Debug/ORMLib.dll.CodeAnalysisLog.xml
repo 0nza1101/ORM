@@ -12,14 +12,14 @@
          <Members>
           <Member Name="#Execute`1(System.String,System.Collections.Generic.List`1&lt;System.Data.Common.DbParameter&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MSSql.cs" Line="126">La chaîne de requête passée en 'DbCommand.CommandText.set(string)' dans 'MSSql.Execute&lt;T&gt;(string, List&lt;DbParameter&gt;)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Select`1(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MSSql.cs" Line="70">La chaîne de requête passée en 'DbCommand.CommandText.set(string)' dans 'MSSql.Select&lt;T&gt;(string)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
@@ -30,15 +30,15 @@
          <Members>
           <Member Name="#Execute`1(System.String,System.Collections.Generic.List`1&lt;System.Data.Common.DbParameter&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
-             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MySql.cs" Line="35">La chaîne de requête passée en 'MySqlCommand.CommandText.set(string)' dans 'MySql.Execute&lt;T&gt;(string, List&lt;DbParameter&gt;)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MySql.cs" Line="48">La chaîne de requête passée en 'MySqlCommand.CommandText.set(string)' dans 'MySql.Execute&lt;T&gt;(string, List&lt;DbParameter&gt;)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Select`1(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
-             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MySql.cs" Line="110">La chaîne de requête passée en 'MySqlCommand.CommandText.set(string)' dans 'MySql.Select&lt;T&gt;(string)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
+             <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="MySql.cs" Line="129">La chaîne de requête passée en 'MySqlCommand.CommandText.set(string)' dans 'MySql.Select&lt;T&gt;(string)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
           </Member>
@@ -48,14 +48,14 @@
          <Members>
           <Member Name="#Execute`1(System.String,System.Collections.Generic.List`1&lt;System.Data.Common.DbParameter&gt;)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="PostgreSql.cs" Line="111">La chaîne de requête passée en 'NpgsqlCommand.CommandText.set(string)' dans 'PostgreSql.Execute&lt;T&gt;(string, List&lt;DbParameter&gt;)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
           </Member>
           <Member Name="#Select`1(System.String)" Kind="Method" Static="False" Accessibility="Public" ExternallyVisible="True">
            <Messages>
-            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:49:22Z" FixCategory="DependsOnFix">
+            <Message TypeName="Vérifier si les requêtes SQL présentent des failles de sécurité" Category="Microsoft.Security" CheckId="CA2100" Status="Active" Created="2017-12-15 19:54:22Z" FixCategory="DependsOnFix">
              <Issue Name="WithNonLiterals" Certainty="75" Level="Warning" Path="C:\Users\Can Serkan\Documents\workspace\Ingesup\ORM\ORMLib\Database" File="PostgreSql.cs" Line="60">La chaîne de requête passée en 'DbCommand.CommandText.set(string)' dans 'PostgreSql.Select&lt;T&gt;(string)' n'a pas pu contenir les variables 'req' suivantes. Si ces variables proviennent d'entrées d'utilisateur, utilisez une procédure stockée ou une requête SQL paramétrable au lieu de générer la requête à l'aide de concaténations de chaîne.</Issue>
             </Message>
            </Messages>
