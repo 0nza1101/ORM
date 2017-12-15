@@ -19,11 +19,13 @@ namespace ORMLib.Database
 
         private MySqlConnection mysqlConnection;
 
-        public Mysql(string ip, string port, string dbName, string username, string password)
-        {
-            connectionString = String.Format("SERVER={0}:{1}; DATABASE={2}; UID={3}; PASSWORD={4}",ip, port, dbName, username, password);
-        }
-
+        /// <summary>
+        /// Constructor of Mysql Objet
+        /// </summary>
+        /// <param name="ip">adress IP of database</param>
+        /// <param name="dbName">name of database</param>
+        /// <param name="username">username to connect database</param>
+        /// <param name="password">password to connect database</param>
         public Mysql(string ip, string dbName, string username, string password)
         {
             connectionString = String.Format("SERVER={0}; DATABASE={1}; UID={2}; PASSWORD={3}", ip, dbName, username, password);
@@ -35,7 +37,13 @@ namespace ORMLib.Database
 
         public MySqlConnection MysqlConnection { get { return mysqlConnection; } set { mysqlConnection = value; } }
      
-
+        /// <summary>
+        /// The execute a CRUD (select, insert, updaten delete) query
+        /// </summary>
+        /// <typeparam name="T">generic objet</typeparam>
+        /// <param name="req">sql query</param>
+        /// <param name="listOfParameters">contains a result sql query</param>
+        /// <returns>return list of result</returns>
         public List<T> Execute<T>(string req, List<DbParameter> listOfParameters)
         {
             List<T> list = new List<T>();
@@ -107,7 +115,13 @@ namespace ORMLib.Database
                 return list;
             }
         }
-
+        
+        /// <summary>
+        /// execute of select query
+        /// </summary>
+        /// <typeparam name="T">generic objet</typeparam>
+        /// <param name="req">sql query</param>
+        /// <returns>return list of result</returns>
         public List<T> Select<T>(string req)
         {
             using (mysqlConnection = new MySqlConnection(connectionString))
