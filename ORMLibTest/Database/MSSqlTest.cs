@@ -4,8 +4,6 @@ using System.Collections.Generic;
 using System.Data.Common;
 using System.Data.SqlClient;
 using System.Linq;
-using ORMLib.Generics;
-using ORMLib.Constants;
 using ORMLibTest.Modele;
 using ORMLib.exception;
 using ORMLib.Database;
@@ -15,7 +13,28 @@ namespace ORMLibTest
     [TestClass]
     public class MSSqlTest
     {
-        private MSSql database = new MSSql("localhost", "1433", "devdb", "sa", "P@55w0rd");
+        private MSSql database;
+
+        [TestInitialize]
+        public void init()
+        {
+            database = new MSSql("localhost", "1433", "devdb", "sa", "P@55w0rd");
+
+            string insertReq = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters = new List<DbParameter>();
+            insertParameters.Add(new SqlParameter("@name", "test case name"));
+            insertParameters.Add(new SqlParameter("@address", "test case azddress"));
+            insertParameters.Add(new SqlParameter("@email", "TestEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq, insertParameters);
+
+            string insertReq2 = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters2 = new List<DbParameter>();
+            insertParameters2.Add(new SqlParameter("@name", "changed name"));
+            insertParameters2.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            insertParameters2.Add(new SqlParameter("@email", "changedEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq2, insertParameters2);
+        }
+
 
         [TestMethod]
         public void TestListWithSelectStatement()
@@ -64,7 +83,7 @@ namespace ORMLibTest
             //GIVEN
             string selectReqWithParameters = @"SELECT * FROM contacts WHERE email = @email";
             List<DbParameter> selectParameters = new List<DbParameter>();
-            selectParameters.Add(new SqlParameter("@email", "canserkan.uren@gmail.com"));
+            selectParameters.Add(new SqlParameter("@email", "TestEmail@gmail.com"));
 
             //WHEN
             List<Contacts> contactsSelectWithParameter = database.Execute<Contacts>(selectReqWithParameters, selectParameters);
@@ -72,7 +91,7 @@ namespace ORMLibTest
             //THEN
             Contacts contact = contactsSelectWithParameter.First();
 
-            Assert.AreEqual("canserkan.uren@gmail.com", contact.email);
+            Assert.AreEqual("TestEmail@gmail.com", contact.email);
             Assert.IsNotNull(contactsSelectWithParameter);
             Assert.IsNotNull(contact);
         }

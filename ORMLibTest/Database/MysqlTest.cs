@@ -1,20 +1,38 @@
 ﻿using System;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using ORMLib.Database;
 using System.Collections.Generic;
 using ORMLibTest.Modele;
 using ORMLib.exception;
 using System.Data.Common;
-using System.Data.SqlClient;
 using System.Linq;
+using MySql.Data.MySqlClient;
 
 namespace ORMLibTest.Database
 {
     [TestClass]
-    public class MysqlTest
+    public class MySqlTest
     {
-        private Mysql database = new Mysql("localhost", "devdb", "root", " ");
+        private ORMLib.Database.MySql database;
 
+        [TestInitialize]
+        public void init()
+        {
+            database = new ORMLib.Database.MySql("localhost", "devdb", "root", "root");
+
+            string insertReq = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters = new List<DbParameter>();
+            insertParameters.Add(new MySqlParameter("@name", "test case name"));
+            insertParameters.Add(new MySqlParameter("@address", "test case azddress"));
+            insertParameters.Add(new MySqlParameter("@email", "TestEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq, insertParameters);
+
+            string insertReq2 = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters2 = new List<DbParameter>();
+            insertParameters2.Add(new MySqlParameter("@name", "changed name"));
+            insertParameters2.Add(new MySqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            insertParameters2.Add(new MySqlParameter("@email", "changedEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq2, insertParameters2);
+        }
 
         [TestMethod]
         public void TestListWithSelectStatement()
@@ -64,7 +82,7 @@ namespace ORMLibTest.Database
             //GIVEN
             string selectReqWithParameters = @"SELECT * FROM contacts WHERE email = @email";
             List<DbParameter> selectParameters = new List<DbParameter>();
-            selectParameters.Add(new SqlParameter("@email", "canserkan.uren@gmail.com"));
+            selectParameters.Add(new MySqlParameter("@email", "TestEmail@gmail.com"));
 
             //WHEN
             List<Contacts> contactsSelectWithParameter = database.Execute<Contacts>(selectReqWithParameters, selectParameters);
@@ -72,7 +90,7 @@ namespace ORMLibTest.Database
             //THEN
             Contacts contact = contactsSelectWithParameter.First();
 
-            Assert.AreEqual("canserkan.uren@gmail.com", contact.email);
+            Assert.AreEqual("TestEmail@gmail.com", contact.email);
             Assert.IsNotNull(contactsSelectWithParameter);
             Assert.IsNotNull(contact);
         }
@@ -83,9 +101,9 @@ namespace ORMLibTest.Database
             //GIVEN
             string insertReq = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
             List<DbParameter> insertParameters = new List<DbParameter>();
-            insertParameters.Add(new SqlParameter("@name", "TEST CASE"));
-            insertParameters.Add(new SqlParameter("@address", "RUE DU TEST"));
-            insertParameters.Add(new SqlParameter("@email", "TestEmail@gmail.com"));
+            insertParameters.Add(new MySqlParameter("@name", "TEST CASE"));
+            insertParameters.Add(new MySqlParameter("@address", "RUE DU TEST"));
+            insertParameters.Add(new MySqlParameter("@email", "TestEmail@gmail.com"));
 
             //WHEN
             List<Contacts> contactsInsertWithParameter = database.Execute<Contacts>(insertReq, insertParameters);
@@ -98,12 +116,12 @@ namespace ORMLibTest.Database
         public void TestExecuteWithUpdateStatementAndWithParameters()
         {
             //GIVEN
-            string updateReq = @"UPDATE contacts SET name = @name, address = @address, @email = email WHERE email = @oldEmail";
+            string updateReq = @"UPDATE contacts SET name = @name, address = @address, email =  @email WHERE email = @oldEmail";
             List<DbParameter> updateParameters = new List<DbParameter>();
-            updateParameters.Add(new SqlParameter("@name", "NAME CHANGED FOR TEST"));
-            updateParameters.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
-            updateParameters.Add(new SqlParameter("@email", "emailChangedForTest@gmail.com"));
-            updateParameters.Add(new SqlParameter("@oldEmail", "TestEmail@gmail.com"));
+            updateParameters.Add(new MySqlParameter("@name", "NAME CHANGED FOR TEST"));
+            updateParameters.Add(new MySqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            updateParameters.Add(new MySqlParameter("@email", "emailChangedForTest@gmail.com"));
+            updateParameters.Add(new MySqlParameter("@oldEmail", "TestEmail@gmail.com"));
 
             //WHEN
             List<Contacts> contactsUpdate = database.Execute<Contacts>(updateReq, updateParameters);
@@ -118,7 +136,7 @@ namespace ORMLibTest.Database
             //GIVEN
             string deleteReq = @"DELETE FROM contacts WHERE address = @address";
             List<DbParameter> deleteParameters = new List<DbParameter>();
-            deleteParameters.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            deleteParameters.Add(new MySqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
 
             //WHEN
             List<Contacts> contactsDelete = database.Execute<Contacts>(deleteReq, deleteParameters);
@@ -134,7 +152,7 @@ namespace ORMLibTest.Database
             //GIVEN
             string deleteReq = @"DELETEZZ FROM contacts WHERE address = @address";
             List<DbParameter> deleteParameters = new List<DbParameter>();
-            deleteParameters.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            deleteParameters.Add(new MySqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
 
             //WHEN
             List<Contacts> contactsDelete = database.Execute<Contacts>(deleteReq, deleteParameters);
@@ -149,7 +167,7 @@ namespace ORMLibTest.Database
             //GIVEN
             string deleteReq = @"SELECTZZ * FROM contacts WHERE address = @address";
             List<DbParameter> deleteParameters = new List<DbParameter>();
-            deleteParameters.Add(new SqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            deleteParameters.Add(new MySqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
 
             //WHEN
             List<Contacts> contactsDelete = database.Execute<Contacts>(deleteReq, deleteParameters);

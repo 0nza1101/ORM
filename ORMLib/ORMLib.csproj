@@ -54,8 +54,7 @@
     <Compile Include="Constants\DatabaseType.cs" />
     <Compile Include="Database\IDatabase.cs" />
     <Compile Include="Database\MSSql.cs" />
-    <Compile Include="Constants\MySqlEngine.cs" />
-    <Compile Include="Database\Mysql.cs" />
+    <Compile Include="Database\MySql.cs" />
     <Compile Include="Database\PostgreSql.cs" />
     <Compile Include="exception\DatabaseException.cs" />
     <Compile Include="exception\WrongSqlRequestException.cs" />

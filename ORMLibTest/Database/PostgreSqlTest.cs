@@ -15,7 +15,31 @@ namespace ORMLibTest
     [TestClass]
     public class PostgreSqlTest
     {
-        private PostgreSql database = new PostgreSql("localhost","devdb","postgres"," ");
+        private PostgreSql database;
+
+        /// <summary>
+        /// This method has to be executed before any tests are launched because we need some elements in the database 
+        /// to run the tests.
+        /// </summary>
+        [TestInitialize]
+        public void init()
+        {
+            database = new PostgreSql("localhost", "devdb", "postgres", "root");
+
+            string insertReq = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters = new List<DbParameter>();
+            insertParameters.Add(new NpgsqlParameter("@name", "test case name"));
+            insertParameters.Add(new NpgsqlParameter("@address", "test case azddress"));
+            insertParameters.Add(new NpgsqlParameter("@email", "TestEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq, insertParameters);
+
+            string insertReq2 = @"INSERT INTO contacts (name, address, email) VALUES (@name, @address, @email)";
+            List<DbParameter> insertParameters2 = new List<DbParameter>();
+            insertParameters2.Add(new NpgsqlParameter("@name", "changed name"));
+            insertParameters2.Add(new NpgsqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
+            insertParameters2.Add(new NpgsqlParameter("@email", "changedEmail@gmail.com"));
+            database.Execute<Contacts>(insertReq2, insertParameters2);
+        }
 
         [TestMethod]
         public void TestListWithSelectStatement()
@@ -64,7 +88,7 @@ namespace ORMLibTest
             //GIVEN
             string selectReqWithParameters = @"SELECT * FROM contacts WHERE email = @email";
             List<DbParameter> selectParameters = new List<DbParameter>();
-            selectParameters.Add(new NpgsqlParameter("@email", "canserkan.uren@gmail.com"));
+            selectParameters.Add(new NpgsqlParameter("@email", "TestEmail@gmail.com"));
 
             //WHEN
             List<Contacts> contactsSelectWithParameter = database.Execute<Contacts>(selectReqWithParameters, selectParameters);
@@ -72,7 +96,7 @@ namespace ORMLibTest
             //THEN
             Contacts contact = contactsSelectWithParameter.First();
 
-            Assert.AreEqual("canserkan.uren@gmail.com", contact.email);
+            Assert.AreEqual("TestEmail@gmail.com", contact.email);
             Assert.IsNotNull(contactsSelectWithParameter);
             Assert.IsNotNull(contact);
         }
@@ -91,14 +115,14 @@ namespace ORMLibTest
             List<Contacts> contactsInsertWithParameter = database.Execute<Contacts>(insertReq, insertParameters);
 
             //THEN            
-            Assert.IsTrue((contactsInsertWithParameter.Count == 0));
+            Assert.IsTrue(contactsInsertWithParameter.Count == 0);
         }
 
         [TestMethod]
         public void TestExecuteWithUpdateStatementAndWithParameters()
         {
             //GIVEN
-            string updateReq = @"UPDATE contacts SET name = @name, address = @address, @email = email WHERE email = @oldEmail";
+            string updateReq = @"UPDATE contacts SET name = @name, address = @address, email = @email WHERE email = @oldEmail";
             List<DbParameter> updateParameters = new List<DbParameter>();
             updateParameters.Add(new NpgsqlParameter("@name", "NAME CHANGED FOR TEST"));
             updateParameters.Add(new NpgsqlParameter("@address", "ADDRESS CHANGED FOR TEST"));
@@ -109,7 +133,7 @@ namespace ORMLibTest
             List<Contacts> contactsUpdate = database.Execute<Contacts>(updateReq, updateParameters);
 
             //THEN
-            Assert.IsTrue((contactsUpdate.Count == 0));
+            Assert.IsTrue(contactsUpdate.Count == 0);
         }
 
         [TestMethod]

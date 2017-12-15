@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Reflection;
 using System.Data;
-using System.Data.SqlClient;
 using System.Data.Common;
 using ORMLib.exception;
 using Npgsql;
@@ -40,7 +39,7 @@ namespace ORMLib.Database
         /// <param name="password">Password to connect to the database. There is none</param>
         public PostgreSql(string ip, string dbName, string username, string password)
         {
-            /// Specify connection options and open an connection
+            // Specify connection options and open an connection
             connectionString = String.Format("Server={0};User Id={2}; Password={3};Database={1};",
                                              ip, dbName,username, password);
         }
@@ -108,7 +107,7 @@ namespace ORMLib.Database
             using (dbConnection = new NpgsqlConnection())
             {
                 dbConnection.ConnectionString = connectionString;
-                DbCommand dbCommand = dbConnection.CreateCommand();
+                DbCommand dbCommand = new NpgsqlCommand();
                 dbCommand.CommandText = req;
                 dbCommand.CommandType = CommandType.Text;
                 dbCommand.Connection = dbConnection;
@@ -149,6 +148,10 @@ namespace ORMLib.Database
                             list.Add(obj);
                         }
                         dbDataReader.Close();
+                    }
+                    else
+                    {
+                        Console.WriteLine("No rows were found.");
                     }
                 }
                 else if (req.IndexOf("INSERT", StringComparison.Ordinal) == 0
