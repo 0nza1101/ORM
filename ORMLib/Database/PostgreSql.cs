@@ -33,10 +33,13 @@ namespace ORMLib.Database
             }
         }
 
-        /// <param name="ip">The IP Address of the database. It generally is localhost</param>
-        /// <param name="dbName">Name of your database</param>
+        /// <summary>
+        ///     Setting the connectionString values.
+        /// </summary>
+        /// <param name="ip">The IP Address of the database, which is usually 'localhost'</param>
+        /// <param name="dbName">Name given to the database</param>
         /// <param name="username">Username to connect to the database</param>
-        /// <param name="password">Password to connect to the database. There is none</param>
+        /// <param name="password">Password set to connect to the postgre database. Did not set one here.</param>
         public PostgreSql(string ip, string dbName, string username, string password)
         {
             // Specify connection options and open an connection
@@ -44,6 +47,20 @@ namespace ORMLib.Database
                                              ip, dbName,username, password);
         }
 
+        /// <summary>
+        ///     SELECT statement.
+        ///     
+        ///     It specifies connection options and opens it.
+        ///     It takes a DbConnection and creates a DbCommand to retrieve data by executing a DbDataReader.
+        ///     Then we return this list.
+        ///     
+        ///     "DbConnection : gets or sets the DbConnection used by this DbCommand"
+        ///     "DbCommand : Represents an SQL statement or stored procedure to execute against a data source, it provides a base class for database-specific classes that represent commands."
+        ///     "The DbDataReader reads a forward-only stream of rows from a data source."
+        ///     
+        ///     As for the try-catch statement, when an exception is thrown, it will look for the catch statement that handles this exception. 
+        ///     It will display an unhandled exception message if the catch block is not found.
+        /// </summary>
         /// <typeparam name="T">A generic object, can be int, can typeof Contacts</typeparam>
         /// <param name="req">Contains the SQL Statement</param>
         /// <returns>A list that contains the result of the SQL SELECT statement</returns>
@@ -90,13 +107,22 @@ namespace ORMLib.Database
                     Console.WriteLine("No rows found.");
                 }
                 // Always call Close when done reading.
+                // Dispose releases all the ressources used by dbConnection
                 reader.Close();
                 dbConnection.Close();
-                dbConnection.Dispose(); /// !!
+                dbConnection.Dispose();
                 return list;
             }
         }
 
+        /// <summary>
+        ///     EXECUTE statement here.
+        ///     It is supposed to execute the chosen statement implying the parameters values set in listOfParameters, and opens the connection.
+        ///     If the SELECT statement is chosen, it will call the ExecuteReader(). It checks the returned row and creates an object with the results of the selected statement.
+        ///     As for the others, based on those INSERT, UPDATE, and DELETE requests, it will call the ExecuteNonQuery():
+        ///     Whenever you want to execute an SQL statement that shouldn't return a value or a record set, the ExecuteNonQuery should be used. 
+        ///     It returns the number of rows affected by the statement. If there is none, an exception will be thrown.
+        /// </summary>
         /// <typeparam name="T">A generic object, can be int, can typeof Contacts</typeparam>
         /// <param name="req">Contains the SQL statement</param>
         /// <param name="listOfParameters">Contains the value of the parameters in the SQL Statement</param>
@@ -171,6 +197,8 @@ namespace ORMLib.Database
                 {
                     throw new WrongSqlRequestException("Your SQL statement is not a SELECT, INSERT, UPDATE or DELETE statement");
                 }
+
+                // Closes and releases the ressources used by the component.
                 dbConnection.Close();
                 dbConnection.Dispose();
                 return list;
